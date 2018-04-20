@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MVCTutorialModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Ta_Country">
+    <Key>
+      <PropertyRef Name="CountryId" />
+    </Key>
+    <Property Name="CountryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CountryName" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ta_State">
+    <Key>
+      <PropertyRef Name="StateId" />
+    </Key>
+    <Property Name="StateId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StateName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="CountryId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Ta_State_Ta_Country">
+    <End Role="Ta_Country" Type="Self.Ta_Country" Multiplicity="1" />
+    <End Role="Ta_State" Type="Self.Ta_State" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ta_Country">
+        <PropertyRef Name="CountryId" />
+      </Principal>
+      <Dependent Role="Ta_State">
+        <PropertyRef Name="CountryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MVCTutorialModelStoreContainer">
+    <EntitySet Name="Ta_Country" EntityType="Self.Ta_Country" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ta_State" EntityType="Self.Ta_State" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Ta_State_Ta_Country" Association="Self.FK_Ta_State_Ta_Country">
+      <End Role="Ta_Country" EntitySet="Ta_Country" />
+      <End Role="Ta_State" EntitySet="Ta_State" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

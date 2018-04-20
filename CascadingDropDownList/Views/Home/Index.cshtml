@@ -1,5 +1,13 @@
 ﻿@model CascadingDropDownList.Models.CountryStateViewModel
 <br /><br />
 <div class="container">
-    <div class="form-group"></div>
+    <div class="form-group">
+        @if (ViewBag.CountryList != null)
+        {
+            @Html.DropDownListFor(model => model.CountryId, ViewBag.CountryList as SelectList, "--Select Country--", new { @class = "form-control" })
+        }
+    </div>
+    <div class="form-group">      
+            @Html.DropDownListFor(model => model.StateId, new SelectList("  "), "--Select Country--", new { @class = "form-control" })      
+    </div>
 </div>
